@@ -1,0 +1,15 @@
+jae L
+jne ElsePart
+jmp ebx
+jmp EndOfIf
+mov eax, x
+cmp eax, 
+jmp L
+jae ebx
+mov ax, d
+mov dx, :=
+add ax, dx
+mov +, 
+ElsePart:
+mov x, e
+EndOfIf
