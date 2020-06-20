@@ -1,0 +1,4 @@
+mov ax,1
+nop         ; Whatever you wanna do goes here
+cmp ax,1    ; Check wether cx is 1
+je loop1    ; And loop if equal
