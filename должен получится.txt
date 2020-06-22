@@ -1,0 +1,29 @@
+
+do {a: = b + c; d: = e;} while (x> 0)
+
+; do
+cikl:	      ; петля
+
+; {a: = b + c; d: = e;}
+mov al, b     ; al=b
+mov bl, c     ; bl=c   
+add al, bl    ; al=al+bl
+mov a, al     ; a=al
+mov d, e      ; d=e
+
+; while (x> 0)
+mov al, x     ;al=x
+mov ab,	      ;ad=0
+cmp al, bl    ;cmp сравни al bl 
+ja cikl       ; если больше, петля "cikl" иначе продолжи
+
+
+
+jbe cikl      команда условного перехода если меньше или равно
+
+mov dl, '0'   ; Пересылаем '0' в регистр dl
+mov ah, 02
+int 21h
+inc dl	
+      
+cmp dl, '9'   если условие выполнено переходим на заданную метку

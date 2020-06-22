@@ -1,4 +1,13 @@
-mov ax,1
-nop         ; Whatever you wanna do goes here
-cmp ax,1    ; Check wether cx is 1
-je loop1    ; And loop if equal
+mov ax,1    ; Пересылаем 1 в регистр ax
+nop         ; Все, что ты хочешь сделать, идет сюда
+cmp ax,1    ; Проверьте, является ли cx 1
+je loop1    ; И петля, если равны
+
+
+mov ax,1    ; Пересылаем 1 в регистр ax
+nop         ; Все, что ты хочешь сделать, идет сюда
+cmp ax,1    ; Проверьте, является ли cx 1
+ja loop1    ; И петля, если больше
+
+
+mov dl,
