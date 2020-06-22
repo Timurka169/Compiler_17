@@ -31,23 +31,11 @@ enum LA_states { //дл€ удобства
     W2, //  лючевое слово while
     W3, //  лючевое слово while
     W4 //  лючевое слово while
-    
-	/*Condition,  //”словие
-	Condition1,
-	Condition2,
-	C1_1,
-	C1_2,
-	C2_1,
-	C2_2,
-	Move1, // —двиг
-	Move2  // —двиг*/
-	
-	
+
 } LA_state = Begin;
 
 void F_Var(char v[100]); 
 void F_Char(char a); 
-//void F_Const_Char(char c[100], char a);
 void F_Const(char c[100]);
 void F_Loop_do();
 void F_Loop_while(); 
@@ -108,41 +96,6 @@ void F_Const(char c[100]) {
     Lex_Table << c << " „исло\n";
 }
 
-//void F_Const_Char(char c[100], char a) {
-//    switch (a) {
-//        case ';':
-//            Lex_Table << a << "  –азделитель¬ыражений\n";
-//            break;
-//        case '+':
-//            Lex_Table << a << "  «накќперации\n";
-//            break;
-//        case '-':
-//            Lex_Table << a << "  «накќперации\n";
-//            break;
-//        case '*':
-//            Lex_Table << a << "  «накќперации\n";
-//            break;
-//        case '/':
-//            Lex_Table << a << "  «накќперации\n";
-//            break;
-//        case '(':
-//            Lex_Table << a << "  ќткрывающа€—кобка\n";
-//            break;
-//        case ')':
-//            Lex_Table << a << "  «акрывающа€—кобка\n";
-//            break;
-//        case '=':
-//            Lex_Table << ":=  «накѕрисваивани€\n";
-//            break;
-//        case '{':
-//        	Lex_Table << a << " ќткрывающа€‘игурна€—кобка\n";
-//        	break;
-//        case '}':
-//        	Lex_Table << a << " «акрывающа€‘игурна€—кобка\n";
-//        	break;
-//    }
-//}
-
 void F_Loop_do() {
 	Lex_Table << "do " << "ƒействие\n"; 
 }
@@ -199,7 +152,7 @@ void Lexem_Analyz(char const* filename) {
                 	F_Char((char) c);
                 	break;
                 }
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '8' || c == '9' || c == '_') {
                     StringPlusChar(Var_buffer, (char) c);
                     LA_state = Variable;
                     break;
