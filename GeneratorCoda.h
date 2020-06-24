@@ -46,7 +46,7 @@ void Generator_Coda(string const* InputChain, char const* filename, int n) {
     Out.open(filename);
     bool check = 0;
 	for(int i = 0; i < n; i ++) {
-		cout << i << InputChain[i] << endl;
+//		cout << i << InputChain[i] << endl;
     	//если он нашел вот такое уравнение _:=_+_
 		if(InputChain[i] == ":=" && (InputChain[i+4] == "+" || InputChain[i+4] == "-" || InputChain[i+4] == "*" || InputChain[i+4] == "/" )) {
 			if(InputChain[i+4] == "+") {
