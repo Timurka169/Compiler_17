@@ -399,6 +399,15 @@ void Lexem_Analyz(char const* filename) {
                     LA_state = Const;
                     break;
                 }
+                if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_' || c >= '8' && c <= '9') {
+                    StringPlusChar(Const_buffer, (char) c);
+                    for(int i = 0; i <= 100; i ++) {
+                    	Var_buffer[i] = Const_buffer[i];
+                    }
+                    Const_buffer[0] = '\0';
+                    LA_state = Variable;
+                    break;
+                }
                 if ((c == ' ') || (c == '\t') || (c == '\n')) {
                     F_Const(Const_buffer);
                     Const_buffer[0] = '\0';
