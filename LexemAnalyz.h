@@ -430,22 +430,6 @@ void Lexem_Analyz(char const* filename) {
                     LA_state = Begin;
                     break;
                 }
-                if(c == '<') {
-                	StringPlusChar(Var_buffer, (char) c);
-                	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
-				if(c == '>') {
-					StringPlusChar(Var_buffer, (char) c);
-                	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
                 if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
                     F_Const(Const_buffer);
                     F_Char(c);
@@ -453,7 +437,15 @@ void Lexem_Analyz(char const* filename) {
                     LA_state = Begin;
                     break;
                 }
-                if (c == ';' || c == '(' || c == ')') {
+                if(c == '>' || c == '<' || c == '=') {
+                	F_Var(Var_buffer);
+                	Var_buffer[0] = '\0';
+                	LA_state = Begin;
+                	F_Char((char) c);
+                	break;
+                }
+                
+                if (c == ';' || c == '}') {
                 	F_Const(Const_buffer);
                     Const_buffer[0] = '\0';
                     F_Char(c);
@@ -478,28 +470,19 @@ void Lexem_Analyz(char const* filename) {
                     LA_state = Begin;
                     break;
                 }
-                if(c == '<') {
-                	StringPlusChar(Var_buffer, (char) c);
-                	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
-				if(c == '>') {
-					StringPlusChar(Var_buffer, (char) c);
-                	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
                 if (c == '+' ||c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == ';') {
                     F_Var(Var_buffer);
                     Var_buffer[0] = '\0';
                     F_Char(c);
                     LA_state = Begin;
                     break;
+                }
+                if(c == '>' || c == '<' || c == '=') {
+                	F_Var(Var_buffer);
+                	Var_buffer[0] = '\0';
+                	F_Char((char) c);
+                	LA_state = Begin;
+                	break;
                 }
                 if (c == ':') {
                     F_Var(Var_buffer);
@@ -524,6 +507,7 @@ void Lexem_Analyz(char const* filename) {
         }
     }
     code.close();
+    Lex_Table << "@ КонецФайла";
     Lex_Table.close();
     cout << "\nЛексический анализ проведён!\n";
 }

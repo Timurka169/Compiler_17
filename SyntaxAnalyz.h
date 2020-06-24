@@ -13,35 +13,35 @@
 #include <algorithm>
 using namespace std;
 
-char RuleMatrix[19][19] = {
-//   +    -    /    *    (    )    a    c   :=    ;    $   if  then else  < 	> 	=	 <<   >>
-    '>', '>', '<', '<', '<', '>', '<', '<', ' ', '>', ' ', '<', '>', '>', ' ', ' ', ' ', ' ', '>', // + 
-    '>', '>', '<', '<', '<', '>', '<', '<', ' ', '>', ' ', '<', '>', '>', ' ', ' ', ' ', ' ', '>',// - 
-    '>', '>', '>', '>', '<', '>', '<', '<', ' ', '>', ' ', '<', '>', '>', ' ', ' ', ' ', ' ', '>',// / 
-    '>', '>', '>', '>', '<', '>', '<', '<', ' ', '>', ' ', '<', '>', '>', ' ', ' ', ' ', ' ', '>',// * 
-    '<', '<', '<', '>', '<', '=', '<', '<', ' ', ' ', ' ', '<', '>', '>', '<', '<', '<', '<', '<',// ( 
-    '>', '>', '>', '>', ' ', '>', '>', ' ', ' ', '>', ' ', '<', '<', '<', '>', '>', '>', '>', '>',// ) 
-    '>', '>', '>', '>', '>', '>', ' ', ' ', '=', '>', ' ', '<', '>', '>', '<', '<', '<', '>', '>',// a  
-    '>', '>', '>', '>', ' ', '>', '>', '<', ' ', '>', ' ', '>', '>', '>', '<', '<', '<', '>', '>',// c 
-    '<', '<', '<', '<', '<', ' ', '<', '<', ' ', '>', ' ', ' ', '>', '<', ' ', ' ', ' ', '<', '<',// :=
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '>', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',// ; 
-    '<', '<', '<', '<', '<', ' ', '<', ' ', ' ', '<', ' ', '<', ' ', '<', ' ', ' ', ' ', '<', '<',// $ 
-    ' ', ' ', ' ', ' ', '<', '<', '<', '>', ' ', ' ', ' ', ' ', '=', ' ', ' ', ' ', ' ', ' ', '>',// if
-    '>', '>', '>', '>', '<', '>', '<', '<', ' ', '>', ' ', '>', ' ', '>', '>', '>', '>', '>', '>',// then
-    '>', '>', '>', '>', '<', '>', '<', '<', ' ', '>', ' ', '>', ' ', '>', '>', '>', '>', '>', '>',// else 
-    ' ', ' ', ' ', ' ', '<', '>', '<', '<', ' ', '>', ' ', ' ', '>', '<', ' ', ' ', ' ', ' ', ' ',// < 
-    ' ', ' ', ' ', ' ', '<', '>', '<', '<', ' ', '>', ' ', ' ', '>', '<', ' ', ' ', ' ', ' ', ' ',// > 
-    ' ', ' ', ' ', ' ', '<', '>', '<', '<', ' ', '>', ' ', ' ', '>', '<', ' ', ' ', ' ', ' ', ' ',// =
-	' ', ' ', ' ', ' ', '<', '>', '<', '<', ' ', '>', ' ', ' ', '<', '<', ' ', ' ', ' ', ' ', ' ',// <<
-	' ', ' ', ' ', ' ', '<', '>', '<', '<', ' ', '>', ' ', ' ', '<', '<', ' ', ' ', ' ', ' ', ' ',// >>
+char RuleMatrix[18][18] = {
+//   +    -    /    *    (    )    a    c   :=    ;    #   do  while  <    > 	=	 {   }
+    '>', '>', '>', '>', ' ', ' ', '<', '<', ' ', '>', ' ', '=', '=', ' ', ' ', ' ', '=', '>', // + 
+    '>', '>', '>', '>', ' ', ' ', '<', '<', ' ', '>', ' ', '=', '=', ' ', ' ', ' ', '=', '>', // - 
+    '>', '>', '>', '>', ' ', ' ', '<', '<', ' ', '>', ' ', '=', '=', ' ', ' ', ' ', '=', '>', // / 
+    '>', '>', '>', '>', ' ', ' ', '<', '<', ' ', '>', ' ', '=', '=', ' ', ' ', ' ', '=', '>', // * 
+    '<', '<', '<', '<', '=', '=', '<', '<', ' ', ' ', ' ', ' ', '=', '=', '=', '=', '=', '=', // ( 
+    '>', '>', '>', '>', '=', '=', ' ', ' ', ' ', ' ', '>', ' ', '=', '=', '=', '=', '=', '=', // ) 
+    '>', '>', '>', '>', '=', '=', ' ', ' ', '=', '>', ' ', '=', '=', '>', '>', '>', '=', '=', // a  
+    '>', '>', '>', '>', ' ', '>', ' ', ' ', ' ', '>', ' ', ' ', ' ', '>', '>', '>', ' ', '>', // c 
+    '<', '<', '<', '<', ' ', ' ', '<', '<', ' ', '>', ' ', '=', '=', ' ', ' ', ' ', '=', '>', // :=
+    ' ', ' ', ' ', ' ', ' ', ' ', '<', '<', ' ', '=', '>', '=', '=', ' ', ' ', ' ', '=', '=', // ; 
+    '<', '<', '<', '<', ' ', ' ', '<', '<', ' ', '<', ' ', '<', ' ', ' ', ' ', ' ', ' ', ' ', // $ 
+    ' ', ' ', ' ', ' ', ' ', ' ', '=', '=', ' ', ' ', ' ', ' ', '=', ' ', ' ', ' ', '=', '=', // do
+    ' ', ' ', ' ', ' ', '<', '<', '=', '=', '=', ' ', '>', ' ', ' ', '=', '=', '=', '=', '=', // while 
+    ' ', ' ', ' ', ' ', '=', '=', '<', '<', '=', ' ', ' ', '=', '=', ' ', ' ', ' ', ' ', ' ', // < 
+    ' ', ' ', ' ', ' ', '=', '=', '<', '<', '=', ' ', ' ', '=', '=', ' ', ' ', ' ', ' ', ' ', // > 
+    ' ', ' ', ' ', ' ', '=', '=', '<', '<', '=', ' ', ' ', '=', '=', ' ', ' ', ' ', ' ', ' ', // =
+	'=', '=', '=', '=', '=', '=', '<', '<', ' ', '=', ' ', '=', '=', '=', '=', '=', '=', '=', // {
+	'=', '=', '=', '=', '=', '=', ' ', ' ', '=', ' ', ' ', '=', '=', '=', '=', '=', '=', '='  // }
 }; 
 
 int Get_Relations(string left, string right) {
+//	cout << "left: " << left << " right: " << right << endl;
     int l = -1, r = -1;
     if (left == "+") l = 0;
     else if (left == "-") l = 1;
-    else if (left == "*") l = 2;
-    else if (left == "/") l = 3;
+    else if (left == "/") l = 2;
+    else if (left == "*") l = 3;
     else if (left == "(") l = 4;
     else if (left == ")") l = 5;
     else if (left == "a") l = 6;
@@ -49,14 +49,13 @@ int Get_Relations(string left, string right) {
     else if (left == ":=") l = 8;
     else if (left == ";") l = 9;
     else if (left == "$") l = 10;
-    else if (left == "if") l = 11;
-    else if (left == "then") l = 12;
-    else if (left == "else") l = 13;
-    else if (left == "<") l = 14;
-    else if (left == ">") l = 15;
-    else if (left == "=") l = 16;
-    else if (left == "<<") l = 17;
-    else if (left == ">>") l = 18;
+    else if (left == "do") l = 11;
+    else if (left == "while") l = 12;
+    else if (left == "<") l = 13;
+    else if (left == ">") l = 14;
+    else if (left == "=") l = 15;
+    else if (left == "{") l = 16;
+    else if (left == "}") l = 17;
 
     if (right == "+") r = 0;
     else if (right == "-") r = 1; 
@@ -69,14 +68,13 @@ int Get_Relations(string left, string right) {
     else if (right == ":=") r = 8;
     else if (right == ";") r = 9;
     else if (right == "#") r = 10;
-    else if (right == "if") r = 11;
-    else if (right == "then") r = 12;
-    else if (right == "else") r = 13;
-    else if (right == "<") r = 14;
-    else if (right == ">") r = 15;
-    else if (right == "=") r = 16;
-    else if (right == "<<") r = 17;
-    else if (right == ">>") r = 18;
+    else if (right == "do") r = 11;
+    else if (right == "while") r = 12;
+    else if (right == "<") r = 13;
+    else if (right == ">") r = 14;
+    else if (right == "=") r = 15;
+    else if (right == "{") r = 16;
+    else if (right == "}") r = 17;
     
     if (l == -1 || r == -1) {
         cout << "Left is " << left << " right is " << right << "\nERROR with l=" << l << " and r=" << r << endl;
@@ -95,24 +93,18 @@ string Find_LT(const string Magazine[200], const int Up) {
 
 int Get_Rule(string Y) {
     if (Y == "E;") return 1;
-    else if (Y == "E+E") return 2;
-    else if (Y == "E-E") return 3;
-    else if (Y == "E*E") return 4;
-    else if (Y == "E/E") return 5;
-    else if (Y == "EelseE") return 6;
-    else if (Y == "ifEthenE") return 7;
-    else if (Y == "<E") return 8;
-    else if (Y == ">E") return 9;
-    else if (Y == "=E") return 10;
-    else if (Y == "a") return 11;
-    else if (Y == "c") return 12;
-    else if (Y == "a:=E") return 14;
-    else if (Y == "E<<E") return 15;
-    else if (Y == "E>>E") return 16;
-    else if (Y == "(E)") return 17;
-    else if (Y == "aE") return 18;
-    else if (Y == "ifE") return 19;
-    else if (Y == "EaE") return 20;
+    else if (Y == "do{E}whileE" || Y == "do{E;}whileE" || Y == "do{E;E;}whileE") return 2;
+    else if (Y == "a:=E") return 3;
+    else if (Y == "E+E") return 4;
+    else if (Y == "E-E") return 5;
+    else if (Y == "E/E") return 6;
+    else if (Y == "E*E") return 7;
+    else if (Y == "(E<E)") return 9;
+    else if (Y == "(E>E)") return 10;
+    else if (Y == "(E=E)") return 11;
+    else if (Y == "a") return 12;
+    else if (Y == "c") return 13;
+//    else if (Y == "do{E}while(E)") return 14;
     else return -1;
 }
 
@@ -121,14 +113,10 @@ void Syntax_Analyz() {
 	ofstream File;
 	LexTable.open("Lexem Table.txt");
     string buf1, buf2;
-    cout << "-----------buf1-------------";
-    cout << buf1;
-    cout << "------------buf2------------";
-    cout << buf2;
     string InputChain[200] = {};
     File.open("Syntax.txt");
     int i = 0;
-    while (buf2 != "–азделитель¬ыражений") {
+    while (buf2 != " онец‘айла") {
         LexTable >> buf1;
         LexTable >> buf2;
         if (buf2 == "ѕеременна€") {
@@ -144,39 +132,39 @@ void Syntax_Analyz() {
             InputChain[i] = "c";
         }
         if (buf2 == "ќткрывающа€—кобка") {
-            InputChain[i] = buf1;
+            InputChain[i] = "(";
         }
         if (buf2 == "«акрывающа€—кобка") {
-            InputChain[i] = buf1;
+            InputChain[i] = ")";
         }
         if (buf2 == "–азделитель¬ыражений") {
             InputChain[i] = buf1;
         }
         if (buf2 == "ќшибочна€Ћексема"){
 		}
-		if (buf2 == "ƒействие1"){
-			InputChain[i] = buf1;
+		if (buf2 == " онец‘айла"){
+			i--;
 		}
-		if (buf2 == "ƒействие2"){
-			InputChain[i] = buf1;
-		}
-		if (buf2 == "—двиг¬лево"){
-			InputChain[i] = buf1;
-		}
-		if (buf2 == "—двиг¬право"){
-			InputChain[i] = buf1;
+		if (buf2 == "ƒействие"){
+			InputChain[i] = "do";
 		}
 		if (buf2 == "«накЅольше"){
-			InputChain[i] = buf1;
+			InputChain[i] = ">";
 		}
 		if (buf2 == "«накћеньше"){
-			InputChain[i] = buf1;
+			InputChain[i] = "<";
 		}
 		if (buf2 == "«нак–авно"){
-			InputChain[i] = buf1;
+			InputChain[i] = "=";
 		}
 		if (buf2 == "”словие"){
-			InputChain[i] = buf1;
+			InputChain[i] = "while";
+		}
+		if (buf2 == "ќткрывающа€‘игурна€—кобка"){
+			InputChain[i] = "{";
+		}
+		if (buf2 == "«акрывающа€‘игурна€—кобка"){
+			InputChain[i] = "}";
 		}
         i++;
     }
@@ -218,7 +206,12 @@ void Syntax_Analyz() {
                 {
                     File << "—вертка";
                     int Num_LT = Up;
-                    while (Magazine[Num_LT] != LastTerminal) Num_LT--; 
+//                    cout << "LastTerminal: " << LastTerminal << endl;
+//                    cout << "Num_LT: " << Num_LT << endl;
+                    while (Magazine[Num_LT] != LastTerminal) {
+//                    	cout << "Magazine[" << Num_LT << "] = " << Magazine[Num_LT] << endl;
+                    	Num_LT--; 
+                    } 
 
                     string Pre_LT; 
                     int rel_PreLT_LT, base_count = 0, base = Num_LT;
