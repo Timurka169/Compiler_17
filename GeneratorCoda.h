@@ -84,7 +84,7 @@ void Generator_Coda(string const* InputChain, char const* filename, int n) {
 			if(InputChain[i+6] == "<") {
 				Out << "jb cikl" << endl;
 			}
-			if(InputChain[i+6] == "==") {
+			if(InputChain[i+6] == "=") {
 				Out << "je cikl" << endl;
 			}
 			if(InputChain[i+6] == ">=") {
