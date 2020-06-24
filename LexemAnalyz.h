@@ -182,26 +182,27 @@ void Lexem_Analyz(char const* filename) {
             case Do:
             	if(c == 'o') {
             		StringPlusChar(Var_buffer, (char)c);
-            		F_Loop_do();
-            		Var_buffer[0] = '\0';
-            		LA_state = Begin;
+            		LA_state = Do;
             		break;
             	} else if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_' || c >= '0' && c <= '9') {
                     StringPlusChar(Var_buffer, (char) c);
                     LA_state = Variable;
                     break;
                 }
-                if(c == '<') {
-                	StringPlusChar(Var_buffer, (char) c);
-                    F_Char((char)c);
-                    break;
-				}
-				if(c == '>') {
-					StringPlusChar(Var_buffer, (char) c);
-                    F_Char((char)c);
-                    break;
-				}
-                if (c == ' ' || c == '\t' || c == '\n') {
+                if(c == '{' || c == ' ') {
+                	F_Loop_do();
+                	Var_buffer[0] = '\0';
+                	LA_state = Begin;
+                	break;
+                }
+                if(c == '>' || c == '<' || c == '=') {
+                	F_Var(Var_buffer);
+                	Var_buffer[0] = '\0';
+                	LA_state = Begin;
+                	F_Char((char) c);
+                	break;
+                }
+                if (c == '\t' || c == '\n') {
                     F_Var(Var_buffer);
                     Var_buffer[0] = '\0';
                     LA_state = Begin;
@@ -231,16 +232,13 @@ void Lexem_Analyz(char const* filename) {
                     LA_state = Variable;
                     break;
                 }
-                if(c == '<') {
-                	StringPlusChar(Var_buffer, (char) c);
-                    F_Char((char)c);
-                    break;
-				}
-				if(c == '>') {
-					StringPlusChar(Var_buffer, (char) c);
-                    F_Char((char)c);
-                    break;
-				}
+                if(c == '>' || c == '<' || c == '=') {
+                	F_Var(Var_buffer);
+                	Var_buffer[0] = '\0';
+                	LA_state = Begin;
+                	F_Char((char) c);
+                	break;
+                }
                 if (c == ' ' || c == '\t' || c == '\n') {
                     F_Var(Var_buffer);
                     Var_buffer[0] = '\0';
@@ -271,22 +269,13 @@ void Lexem_Analyz(char const* filename) {
                     LA_state = Variable;
                     break;
                 }
-                if(c == '<') {
-                	StringPlusChar(Var_buffer, (char) c);
+                if(c == '>' || c == '<' || c == '=') {
                 	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
-				if(c == '>') {
-					StringPlusChar(Var_buffer, (char) c);
-                	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
+                	Var_buffer[0] = '\0';
+                	LA_state = Begin;
+                	F_Char((char) c);
+                	break;
+                }
                 if (c == ' ' || c == '\t' || c == '\n') {
                     F_Var(Var_buffer);
                     Var_buffer[0] = '\0';
@@ -317,22 +306,13 @@ void Lexem_Analyz(char const* filename) {
                     LA_state = Variable;
                     break;
                 }
-                if(c == '<') {
-                	StringPlusChar(Var_buffer, (char) c);
+                if(c == '>' || c == '<' || c == '=') {
                 	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
-				if(c == '>') {
-					StringPlusChar(Var_buffer, (char) c);
-                	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
+                	Var_buffer[0] = '\0';
+                	LA_state = Begin;
+                	F_Char((char) c);
+                	break;
+                }
                 if (c == ' ' || c == '\t' || c == '\n') {
                     F_Var(Var_buffer);
                     Var_buffer[0] = '\0';
@@ -356,31 +336,26 @@ void Lexem_Analyz(char const* filename) {
             case W4:
             	if(c == 'e') {
             		StringPlusChar(Var_buffer, (char)c);
-            		F_Loop_while();
-            		Var_buffer[0] = '\0';
-            		LA_state = Begin;
+            		LA_state = W4;
             		break;
             	} else if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_' || c >= '0' && c <= '9') {
                     StringPlusChar(Var_buffer, (char) c);
                     LA_state = Variable;
                     break;
                 }
-                if(c == '<') {
-                	StringPlusChar(Var_buffer, (char) c);
+                if(c == '(' || c == ' ') {
+                	F_Loop_while();
+                	Var_buffer[0] = '\0';
+                	LA_state = Begin;
+                	break;
+                }
+                if(c == '>' || c == '<' || c == '=') {
                 	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
-				if(c == '>') {
-					StringPlusChar(Var_buffer, (char) c);
-                	F_Var(Var_buffer);
-					Var_buffer[0] = '\0';
-                    F_Char((char)c);
-                    LA_state = Begin;
-                    break;
-				}
+                	Var_buffer[0] = '\0';
+                	LA_state = Begin;
+                	F_Char((char) c);
+                	break;
+                }
                 if (c == ' ' || c == '\t' || c == '\n') {
                     F_Var(Var_buffer);
                     Var_buffer[0] = '\0';
@@ -496,7 +471,11 @@ void Lexem_Analyz(char const* filename) {
                 LA_state = Error;
                 break;
             case Assignment:
-                if (c == '=' || c == '\t') {
+            	if( c == ' ') {
+            		LA_state = Assignment;
+            		break;
+            	}
+                if (c == '=') {
                     F_Assignment(c);
                     LA_state = Begin;
                     break;
