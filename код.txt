@@ -1,4 +1,4 @@
-do {a: = b + c; d: = e;} while (x> 0)
+﻿do {a: = b + c; d: = e;} while (x> 0)
 
 ; do
 cikl:	      ; петля
@@ -12,6 +12,6 @@ mov d, e      ; d=e
 
 ; while (x> 0)
 mov al, x     ;al=x
-mov ab,	0     ;ad=0
+mov bl,	0     ;bl=0
 cmp al, bl    ;cmp сравни al bl 
 ja cikl       ; если больше, петля "cikl" иначе продолжи
