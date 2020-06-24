@@ -8,3 +8,5 @@ mov ax, x
 mov dx, 0
 cmp ax, dx
 ja cikl
+
+
