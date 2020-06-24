@@ -1,15 +1,10 @@
-jae L
-jne ElsePart
-jmp ebx
-jmp EndOfIf
-mov eax, x
-cmp eax, 
-jmp L
-jae ebx
-mov ax, d
-mov dx, :=
+cikl:
+mov ax, a
+mov dx, b
 add ax, dx
-mov +, 
-ElsePart:
-mov x, e
-EndOfIf
+mov a, ax 
+mov d, e
+mov ax, x
+mov dx, 0
+cmp ax, dx
+ja cikl
